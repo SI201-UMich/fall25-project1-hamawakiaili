@@ -8,3 +8,16 @@ from penguins_analysis import (  # replace with your filename (without .py)
     avg_bill_length_by_year_and_sex
 )
 
+class TestPenguinFunctions(unittest.TestCase):
+
+    def setUp(self):
+        self.data = [
+            {"species": "Adelie", "island": "Torgersen", "bill_length_mm": "39.1", "bill_depth_mm": "18.7",
+             "flipper_length_mm": "181", "body_mass_g": "3750", "sex": "MALE", "year": "2007"},
+            {"species": "Adelie", "island": "Torgersen", "bill_length_mm": "39.5", "bill_depth_mm": "17.4",
+             "flipper_length_mm": "186", "body_mass_g": "3800", "sex": "FEMALE", "year": "2007"},
+            {"species": "Gentoo", "island": "Biscoe", "bill_length_mm": "49.5", "bill_depth_mm": "15.9",
+             "flipper_length_mm": "222", "body_mass_g": "5250", "sex": "FEMALE", "year": "2009"},
+            {"species": "Chinstrap", "island": "Dream", "bill_length_mm": "46.5", "bill_depth_mm": "17.9",
+             "flipper_length_mm": "195", "body_mass_g": "3650", "sex": "MALE", "year": "2008"}
+        ]
