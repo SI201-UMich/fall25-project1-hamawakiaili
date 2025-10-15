@@ -1,16 +1,17 @@
 import csv
-def load_csv(penguins):
+import unittest
+
+def load_data(filename):
     data = []
-    with open(penguins, mode='r') as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            if '' in row:
-                del row['']
+    with open(filename, "r", encoding="utf-8") as infile:
+        csv_reader = csv.DictReader(infile)
+        for row in csv_reader:
             data.append(row)
     return data
 
-if __name__ == "__main__":
-    data = load_csv("penguins.csv")
-    print("Number of rows:", len(data))
-    print("Sample row:", data[0])
-
+def safe_float(value):
+    try:
+        val = float(value)
+        return val
+    except (ValueError, TypeError):
+        return None
