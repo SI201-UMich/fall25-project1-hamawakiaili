@@ -152,6 +152,44 @@ def main():
 
     print("✅ All results written to 'penguin_results_all.txt' successfully!")
 
+class TestPenguinFunctions(unittest.TestCase):
+
+    def setUp(self):
+        self.sample_data = [
+            {"species": "Adelie", "island": "Torgersen", "bill_length_mm": "39.1", "bill_depth_mm": "18.7",
+             "flipper_length_mm": "181", "body_mass_g": "3750", "sex": "MALE", "year": "2007"},
+            {"species": "Adelie", "island": "Torgersen", "bill_length_mm": "39.5", "bill_depth_mm": "17.4",
+             "flipper_length_mm": "186", "body_mass_g": "3800", "sex": "FEMALE", "year": "2007"},
+            {"species": "Gentoo", "island": "Biscoe", "bill_length_mm": "49.5", "bill_depth_mm": "15.9",
+             "flipper_length_mm": "222", "body_mass_g": "5250", "sex": "FEMALE", "year": "2009"},
+            {"species": "Chinstrap", "island": "Dream", "bill_length_mm": "46.5", "bill_depth_mm": "17.9",
+             "flipper_length_mm": "195", "body_mass_g": "3650", "sex": "MALE", "year": "2008"}
+        ]
+
+    def test_avg_body_mass_by_species_and_sex(self):
+        result = avg_body_mass_by_species_and_sex(self.sample_data)
+        self.assertIn("Adelie (MALE)", result)
+
+    def test_avg_bill_length_by_island_and_year(self):
+        result = avg_bill_length_by_island_and_year(self.sample_data)
+        self.assertTrue(all(isinstance(v, float) for v in result.values()))
+
+    def test_avg_flipper_length_by_species_and_island(self):
+        result = avg_flipper_length_by_species_and_island(self.sample_data)
+        self.assertIn("Gentoo (Biscoe)", result)
+
+    def test_body_mass_difference_by_sex_and_island(self):
+        result = body_mass_difference_by_sex_and_island(self.sample_data)
+        self.assertIn("Torgersen", result)
+
+    def test_bill_depth_vs_flipper_length_by_species(self):
+        result = bill_depth_vs_flipper_length_by_species(self.sample_data)
+        self.assertIn("Adelie", result)
+
+    def test_avg_bill_length_by_year_and_sex(self):
+        result = avg_bill_length_by_year_and_sex(self.sample_data)
+        self.assertIn("2007 (MALE)", result)
+
 if __name__ == "__main__":
     main()               # runs analysis and writes the TXT
     print("\nRunning unit tests...\n")
