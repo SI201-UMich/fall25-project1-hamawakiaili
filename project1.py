@@ -111,3 +111,19 @@ def bill_depth_vs_flipper_length_by_species(data):
     } for species, v in results.items()}
     return avg
 
+def avg_bill_length_by_year_and_sex(data):
+    results = {}
+    for row in data:
+        year = row.get("year", "")
+        sex = row.get("sex", "")
+        bill_length = safe_float(row.get("bill_length_mm", ""))
+        if not year or not sex or bill_length is None:
+            continue
+        key = (year, sex)
+        if key not in results:
+            results[key] = {"total": 0, "count": 0}
+        results[key]["total"] += bill_length
+        results[key]["count"] += 1
+    avg = {f"{year} ({sex})": round(v["total"] / v["count"], 2)
+           for (year, sex), v in results.items()}
+    return avg
