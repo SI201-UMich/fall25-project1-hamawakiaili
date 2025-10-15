@@ -35,3 +35,10 @@ class TestPenguinFunctions(unittest.TestCase):
         self.assertTrue(all(isinstance(v, float) for v in result.values()))
         self.assertEqual(result["Torgersen (2007)"], round((39.1 + 39.5) / 2, 2))
         self.assertEqual(len(result), 3)
+
+    def test_avg_flipper_length_by_species_and_island(self):
+        result = avg_flipper_length_by_species_and_island(self.data)
+        self.assertIn("Gentoo (Biscoe)", result)
+        self.assertIn("Adelie (Torgersen)", result)
+        self.assertEqual(result["Adelie (Torgersen)"], round((181 + 186)/2, 2))
+        self.assertTrue(all(isinstance(v, float) for v in result.values()))
