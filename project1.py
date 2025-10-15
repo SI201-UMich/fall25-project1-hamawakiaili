@@ -92,3 +92,22 @@ def body_mass_difference_by_sex_and_island(data):
             results[island] = round(male_avg - female_avg, 2)
     return results
 
+def bill_depth_vs_flipper_length_by_species(data):
+    results = {}
+    for row in data:
+        species = row.get("species", "")
+        bill_depth = safe_float(row.get("bill_depth_mm", ""))
+        flipper_length = safe_float(row.get("flipper_length_mm", ""))
+        if not species or bill_depth is None or flipper_length is None:
+            continue
+        if species not in results:
+            results[species] = {"bill_total": 0, "flip_total": 0, "count": 0}
+        results[species]["bill_total"] += bill_depth
+        results[species]["flip_total"] += flipper_length
+        results[species]["count"] += 1
+    avg = {species: {
+        "avg_bill_depth": round(v["bill_total"] / v["count"], 2),
+        "avg_flipper_length": round(v["flip_total"] / v["count"], 2)
+    } for species, v in results.items()}
+    return avg
+
