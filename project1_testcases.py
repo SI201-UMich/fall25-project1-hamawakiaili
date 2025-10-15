@@ -56,3 +56,14 @@ class TestPenguinFunctions(unittest.TestCase):
         self.assertIn("Gentoo", result)
         self.assertIn("avg_bill_depth", result["Adelie"])
         self.assertIn("avg_flipper_length", result["Adelie"])
+
+    def test_avg_bill_length_by_year_and_sex(self):
+        result = avg_bill_length_by_year_and_sex(self.data)
+        self.assertIn("2007 (MALE)", result)
+        self.assertIn("2007 (FEMALE)", result)
+        self.assertEqual(result["2007 (MALE)"], 39.1)
+        self.assertTrue(all(isinstance(v, float) for v in result.values()))
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
