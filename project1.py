@@ -127,3 +127,32 @@ def avg_bill_length_by_year_and_sex(data):
     avg = {f"{year} ({sex})": round(v["total"] / v["count"], 2)
            for (year, sex), v in results.items()}
     return avg
+
+def main():
+    filename = "penguins.csv"
+    data = load_data(filename)
+
+    results = {
+        "Average Body Mass by Species and Sex": avg_body_mass_by_species_and_sex(data),
+        "Average Bill Length by Island and Year": avg_bill_length_by_island_and_year(data),
+        "Average Flipper Length by Species and Island": avg_flipper_length_by_species_and_island(data),
+        "Body Mass Difference by Sex and Island": body_mass_difference_by_sex_and_island(data),
+        "Bill Depth vs Flipper Length by Species": bill_depth_vs_flipper_length_by_species(data),
+        "Average Bill Length by Year and Sex": avg_bill_length_by_year_and_sex(data)
+    }
+
+    with open("penguin_results_all.txt", "w", encoding="utf-8") as f:
+        for title, result in results.items():
+            f.write(f"{'='*60}\n")
+            f.write(f"{title}\n")
+            f.write(f"{'='*60}\n")
+            for key, value in result.items():
+                f.write(f"{key}: {value}\n")
+            f.write("\n")
+
+    print("✅ All results written to 'penguin_results_all.txt' successfully!")
+
+if __name__ == "__main__":
+    main()               # runs analysis and writes the TXT
+    print("\nRunning unit tests...\n")
+    unittest.main(argv=[''], verbosity=2, exit=False)
