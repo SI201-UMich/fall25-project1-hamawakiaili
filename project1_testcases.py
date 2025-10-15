@@ -28,3 +28,10 @@ class TestPenguinFunctions(unittest.TestCase):
         self.assertIn("Adelie (FEMALE)", result)
         self.assertEqual(result["Adelie (MALE)"], 3750.0)
         self.assertTrue(all(isinstance(v, float) for v in result.values()))
+
+    def test_avg_bill_length_by_island_and_year(self):
+        result = avg_bill_length_by_island_and_year(self.data)
+        self.assertIn("Torgersen (2007)", result)
+        self.assertTrue(all(isinstance(v, float) for v in result.values()))
+        self.assertEqual(result["Torgersen (2007)"], round((39.1 + 39.5) / 2, 2))
+        self.assertEqual(len(result), 3)
