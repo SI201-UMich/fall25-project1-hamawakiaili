@@ -21,3 +21,10 @@ class TestPenguinFunctions(unittest.TestCase):
             {"species": "Chinstrap", "island": "Dream", "bill_length_mm": "46.5", "bill_depth_mm": "17.9",
              "flipper_length_mm": "195", "body_mass_g": "3650", "sex": "MALE", "year": "2008"}
         ]
+
+    def test_avg_body_mass_by_species_and_sex(self):
+        result = avg_body_mass_by_species_and_sex(self.data)
+        self.assertIn("Adelie (MALE)", result)
+        self.assertIn("Adelie (FEMALE)", result)
+        self.assertEqual(result["Adelie (MALE)"], 3750.0)
+        self.assertTrue(all(isinstance(v, float) for v in result.values()))
