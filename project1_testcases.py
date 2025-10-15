@@ -42,3 +42,10 @@ class TestPenguinFunctions(unittest.TestCase):
         self.assertIn("Adelie (Torgersen)", result)
         self.assertEqual(result["Adelie (Torgersen)"], round((181 + 186)/2, 2))
         self.assertTrue(all(isinstance(v, float) for v in result.values()))
+
+    def test_body_mass_difference_by_sex_and_island(self):
+        result = body_mass_difference_by_sex_and_island(self.data)
+        self.assertIn("Torgersen", result)
+        self.assertIsInstance(result, dict)
+        self.assertEqual(result["Torgersen"], 3750 - 3800)
+        self.assertTrue(all(isinstance(v, float) or isinstance(v, int) for v in result.values()))
