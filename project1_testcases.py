@@ -49,3 +49,10 @@ class TestPenguinFunctions(unittest.TestCase):
         self.assertIsInstance(result, dict)
         self.assertEqual(result["Torgersen"], 3750 - 3800)
         self.assertTrue(all(isinstance(v, float) or isinstance(v, int) for v in result.values()))
+
+    def test_bill_depth_vs_flipper_length_by_species(self):
+        result = bill_depth_vs_flipper_length_by_species(self.data)
+        self.assertIn("Adelie", result)
+        self.assertIn("Gentoo", result)
+        self.assertIn("avg_bill_depth", result["Adelie"])
+        self.assertIn("avg_flipper_length", result["Adelie"])
