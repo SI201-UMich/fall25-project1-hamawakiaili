@@ -49,3 +49,46 @@ def avg_bill_length_by_island_and_year(data):
     avg = {f"{island} ({year})": round(v["total"] / v["count"], 2)
            for (island, year), v in results.items()}
     return avg
+
+def avg_flipper_length_by_species_and_island(data):
+    results = {}
+    for row in data:
+        species = row.get("species", "")
+        island = row.get("island", "")
+        flipper_length = safe_float(row.get("flipper_length_mm", ""))
+        if not species or not island or flipper_length is None:
+            continue
+        key = (species, island)
+        if key not in results:
+            results[key] = {"total": 0, "count": 0}
+        results[key]["total"] += flipper_length
+        results[key]["count"] += 1
+    avg = {f"{sp} ({isle})": round(v["total"] / v["count"], 2)
+           for (sp, isle), v in results.items()}
+    return avg
+
+
+def body_mass_difference_by_sex_and_island(data):
+    temp = {}
+    for row in data:
+        sex = row.get("sex", "").upper()
+        island = row.get("island", "")
+        mass = safe_float(row.get("body_mass_g", ""))
+        if not sex or not island or mass is None:
+            continue
+        key = (island, sex)
+        if key not in temp:
+            temp[key] = {"total": 0, "count": 0}
+        temp[key]["total"] += mass
+        temp[key]["count"] += 1
+
+    results = {}
+    for island in set(i for i, _ in temp.keys()):
+        male_key = (island, "MALE")
+        female_key = (island, "FEMALE")
+        if male_key in temp and female_key in temp:
+            male_avg = temp[male_key]["total"] / temp[male_key]["count"]
+            female_avg = temp[female_key]["total"] / temp[female_key]["count"]
+            results[island] = round(male_avg - female_avg, 2)
+    return results
+
